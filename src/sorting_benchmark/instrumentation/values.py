@@ -1,0 +1,43 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any
+
+from sorting_benchmark.instrumentation.counters import active_counters
+
+# valuers that track the number of comparisons for benchmarking purposes, used in InstrumentedList 
+@dataclass(frozen=True)
+class InstrumentedValue:
+    value: Any
+
+    def _count(self) -> None:
+        counters = active_counters()
+        if counters is not None:
+            counters.comparisons += 1
+
+    def _unwrap(self, other: Any) -> Any:
+        return other.value if isinstance(other, InstrumentedValue) else other
+
+    def __lt__(self, other: Any) -> bool:
+        self._count()
+        return self.value < self._unwrap(other)
+
+    def __le__(self, other: Any) -> bool:
+        self._count()
+        return self.value <= self._unwrap(other)
+
+    def __gt__(self, other: Any) -> bool:
+        self._count()
+        return self.value > self._unwrap(other)
+
+    def __ge__(self, other: Any) -> bool:
+        self._count()
+        return self.value >= self._unwrap(other)
+
+    def __eq__(self, other: Any) -> bool:
+        self._count()
+        return self.value == self._unwrap(other)
+
+    def __ne__(self, other: Any) -> bool:
+        self._count()
+        return self.value != self._unwrap(other)
