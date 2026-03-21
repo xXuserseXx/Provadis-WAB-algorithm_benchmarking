@@ -31,7 +31,7 @@ def _move_pivot_to_end(data, lo: int, hi: int) -> None:
     data[hi] = tmp
 
 # 2 splits, pivot in the middle, good for random data, bad for many duplicates or presorted data, crashes on duplicates, nots stable
-# will not be used for the benchmarks, but I will keep it here for reference and testing purposes
+# will not be used for the benchmarks, but I will keep it here for testing purposes and because I didnt want to delete my work
 def quicksort_2way_inplace(data, lo: int = 0, hi: int | None = None, depth: int = 1):
     if hi is None:
         hi = len(data) - 1

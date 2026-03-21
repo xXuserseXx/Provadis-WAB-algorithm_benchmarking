@@ -9,8 +9,8 @@ if __name__ == "__main__":
     run_specs = default_run_specs(
         algorithms=default_algorithms(),
         datasets=default_datasets(),
-        sizes=[1000, 5000, 10000],
-        seeds=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+        sizes=[50000],
+        seeds=list(range(1,100)),
         repetitions=1,
     )
     run_benchmarks(
